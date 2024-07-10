@@ -1,55 +1,68 @@
-import { ArrowLeftOutlined, LoadingOutlined } from '@ant-design/icons';
-import { ColorChooser, ImageLoader, MessageDisplay } from '@/components/common';
-import { ProductShowcaseGrid } from '@/components/product';
-import { RECOMMENDED_PRODUCTS, SHOP } from '@/constants/routes';
-import { displayMoney } from '@/helpers/utils';
+import {
+  ArrowLeftOutlined,
+  LoadingOutlined,
+  CreditCardOutlined,
+  TruckOutlined,
+  FacebookOutlined,
+  TwitterOutlined,
+  PinterestOutlined,
+} from "@ant-design/icons";
+import {
+  ColorChooser,
+  ImageLoader,
+  MessageDisplay,
+  SizeChooser,
+} from "@/components/common";
+import { ProductShowcaseGrid } from "@/components/product";
+import { RECOMMENDED_PRODUCTS, SHOP } from "@/constants/routes";
+import { displayMoney } from "@/helpers/utils";
 import {
   useBasket,
   useDocumentTitle,
   useProduct,
   useRecommendedProducts,
-  useScrollTop
-} from '@/hooks';
-import React, { useEffect, useRef, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import Select from 'react-select';
+  useScrollTop,
+} from "@/hooks";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import Select from "react-select";
 
 const ViewProduct = () => {
   const { id } = useParams();
   const { product, isLoading, error } = useProduct(id);
   const { addToBasket, isItemOnBasket } = useBasket(id);
   useScrollTop();
-  useDocumentTitle(`View ${product?.name || 'Item'}`);
+  useDocumentTitle(`View ${product?.name || "Item"}`);
 
-  const [selectedImage, setSelectedImage] = useState(product?.image || '');
-  const [selectedSize, setSelectedSize] = useState('');
-  const [selectedColor, setSelectedColor] = useState('');
+  const [selectedImage, setSelectedImage] = useState(product?.image || "");
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
 
   const {
     recommendedProducts,
     fetchRecommendedProducts,
     isLoading: isLoadingFeatured,
-    error: errorFeatured
+    error: errorFeatured,
   } = useRecommendedProducts(6);
-  const colorOverlay = useRef(null);
 
   useEffect(() => {
     setSelectedImage(product?.image);
   }, [product]);
 
-  const onSelectedSizeChange = (newValue) => {
-    setSelectedSize(newValue.value);
+  const onSelectedSizeChange = (size) => {
+    setSelectedSize(size);
   };
 
   const onSelectedColorChange = (color) => {
     setSelectedColor(color);
-    if (colorOverlay.current) {
-      colorOverlay.current.value = color;
-    }
   };
 
   const handleAddToBasket = () => {
-    addToBasket({ ...product, selectedColor, selectedSize: selectedSize || product.sizes[0] });
+    addToBasket({
+      ...product,
+      selectedColor,
+      selectedSize: selectedSize || product.sizes[0],
+    });
   };
 
   return (
@@ -58,18 +71,16 @@ const ViewProduct = () => {
         <div className="loader">
           <h4>Loading Product...</h4>
           <br />
-          <LoadingOutlined style={{ fontSize: '3rem' }} />
+          <LoadingOutlined style={{ fontSize: "3rem" }} />
         </div>
       )}
-      {error && (
-        <MessageDisplay message={error} />
-      )}
-      {(product && !isLoading) && (
+      {error && <MessageDisplay message={error} />}
+      {product && !isLoading && (
         <div className="product-view">
           <Link to={SHOP}>
             <h3 className="button-link d-inline-flex">
               <ArrowLeftOutlined />
-              &nbsp; Back to shop
+              &nbsp; Voltar
             </h3>
           </Link>
           <div className="product-modal">
@@ -91,7 +102,6 @@ const ViewProduct = () => {
               </div>
             )}
             <div className="product-modal-image-wrapper">
-              {selectedColor && <input type="color" disabled ref={colorOverlay} id="color-overlay" />}
               <ImageLoader
                 alt={product.name}
                 className="product-modal-image"
@@ -99,53 +109,82 @@ const ViewProduct = () => {
               />
             </div>
             <div className="product-modal-details">
-              <br />
-              <span className="text-subtle">{product.brand}</span>
-              <h1 className="margin-top-0">{product.name}</h1>
-              <span>{product.description}</span>
-              <br />
-              <br />
-              <div className="divider" />
-              <br />
-              <div>
-                <span className="text-subtle">Lens Width and Frame Size</span>
-                <br />
-                <br />
-                <Select
-                  placeholder="--Select Size--"
-                  onChange={onSelectedSizeChange}
-                  options={product.sizes.sort((a, b) => (a < b ? -1 : 1)).map((size) => ({ label: `${size} mm`, value: size }))}
-                  styles={{ menu: (provided) => ({ ...provided, zIndex: 10 }) }}
-                />
-              </div>
-              <br />
-              {product.availableColors.length >= 1 && (
-                <div>
-                  <span className="text-subtle">Choose Color</span>
-                  <br />
-                  <br />
-                  <ColorChooser
-                    availableColors={product.availableColors}
-                    onSelectedColorChange={onSelectedColorChange}
+              <div className="product-modal-details-novo">
+                <div className="product-modal-details-breadcrumbs">
+                  breadcrumbs
+                </div>
+                <div className="product-modal-details-title">
+                  {product.name}
+                </div>
+                <div className="product-modal-details-price">
+                  <div className="product-modal-details-price-row">
+                    <span>{displayMoney(product.price)}</span>
+                    <div className="product-modal-details-price-pix">
+                      <span>{displayMoney(product.price * 0.95)}</span>
+                      <span>com Pix</span>
+                    </div>
+                  </div>
+                  <div className="product-modal-details-price-card">
+                    <span>3x de</span>
+                    <span>{displayMoney(product.price / 3)}</span>
+                    <span>sem juros</span>
+                  </div>
+                </div>
+                <div className="divider" />
+                <div className="product-modal-details-size">
+                  <div>TAMANHO</div>
+
+                  <SizeChooser
+                    availableSizes={product.sizes}
+                    onSelectedSizeChange={onSelectedSizeChange}
                   />
                 </div>
-              )}
-              <h1>{displayMoney(product.price)}</h1>
-              <div className="product-modal-action">
+                {product.availableColors.length >= 1 && (
+                  <div className="product-modal-details-color">
+                    <div>COR</div>
+
+                    <ColorChooser
+                      availableColors={product.availableColors}
+                      onSelectedColorChange={onSelectedColorChange}
+                    />
+                  </div>
+                )}
                 <button
-                  className={`button button-small ${isItemOnBasket(product.id) ? 'button-border button-border-gray' : ''}`}
+                  className={`button button-small product-modal-details-btn ${
+                    isItemOnBasket(product.id)
+                      ? "button-border button-border-gray"
+                      : ""
+                  }`}
                   onClick={handleAddToBasket}
                   type="button"
                 >
-                  {isItemOnBasket(product.id) ? 'Remove From Basket' : 'Add To Basket'}
+                  {isItemOnBasket(product.id)
+                    ? "Remover do Carrinho"
+                    : "Comprar"}
                 </button>
+                <div className="product-modal-details-pay">
+                  <CreditCardOutlined />
+                  <span>meios de pagamento</span>
+                </div>
+                <div className="product-modal-details-delivery">
+                  <TruckOutlined />
+                  <span>meios de envio</span>
+                </div>
+                <div className="product-modal-details-details">
+                  <span>{product.description}</span>
+                </div>
+                <div className="product-modal-details-sm">
+                  <FacebookOutlined />
+                  <TwitterOutlined />
+                  <PinterestOutlined />
+                </div>
               </div>
             </div>
           </div>
-          <div style={{ marginTop: '10rem' }}>
+          <div style={{ marginTop: "10rem" }}>
             <div className="display-header">
-              <h1>Recommended</h1>
-              <Link to={RECOMMENDED_PRODUCTS}>See All</Link>
+              <h1>Recomendados</h1>
+              <Link to={RECOMMENDED_PRODUCTS}>Ver Mais</Link>
             </div>
             {errorFeatured && !isLoadingFeatured ? (
               <MessageDisplay
@@ -154,7 +193,10 @@ const ViewProduct = () => {
                 buttonLabel="Try Again"
               />
             ) : (
-              <ProductShowcaseGrid products={recommendedProducts} skeletonCount={3} />
+              <ProductShowcaseGrid
+                products={recommendedProducts}
+                skeletonCount={3}
+              />
             )}
           </div>
         </div>

@@ -6,6 +6,7 @@ label {
     padding: $s-size $m-size;
     display: inline-block;
     position: relative;
+    color: $nav-color;
     
     &:hover {
         cursor: pointer;

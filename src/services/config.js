@@ -1,11 +1,12 @@
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  databaseURL: import.meta.env.VITE_FIREBASE_DB_URL,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MSG_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID
+  apiKey: "AIzaSyBsS40br64Ed2SWggm6kH3CX95GGW0wRMg",
+  authDomain: "ignite-store-1719855635609.firebaseapp.com",
+  projectId: "ignite-store-1719855635609",
+  storageBucket: "ignite-store-1719855635609.appspot.com",
+  messagingSenderId: "384700029085",
+  appId: "1:384700029085:web:0bbe0fc1479be4c7a5dc74",
+  databaseURL:
+    "https://ignite-store-1719855635609-default-rtdb.firebaseio.com/",
 };
 
 export default firebaseConfig;

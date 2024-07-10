@@ -53,6 +53,7 @@
 }
 
 .navigation-menu {
+  color: $nav-color;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -71,6 +72,7 @@
     
     
     a {
+      color: $nav-color;
       padding: 10px 15px;
       font-size: 1.4rem;
       opacity: .5;
@@ -83,6 +85,7 @@
 }
 
 .navigation-menu-item {
+  color: $nav-color;
   display: inline-block;
   list-style-type: none;
   padding: 0;
@@ -111,6 +114,7 @@
 }
 
 .navigation-menu-active {
+  color: $nav-color;
   font-weight: bold;
   opacity: 1 !important;
 }

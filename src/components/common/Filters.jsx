@@ -1,24 +1,24 @@
 /* eslint-disable no-nested-ternary */
-import { useDidMount } from '@/hooks';
-import PropType from 'prop-types';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, withRouter } from 'react-router-dom';
-import { applyFilter, resetFilter } from '@/redux/actions/filterActions';
-import { selectMax, selectMin } from '@/selectors/selector';
-import PriceRange from './PriceRange';
+import { useDidMount } from "@/hooks";
+import PropType from "prop-types";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, withRouter } from "react-router-dom";
+import { applyFilter, resetFilter } from "@/redux/actions/filterActions";
+import { selectMax, selectMin } from "@/selectors/selector";
+import PriceRange from "./PriceRange";
 
 const Filters = ({ closeModal }) => {
   const { filter, isLoading, products } = useSelector((state) => ({
     filter: state.filter,
     isLoading: state.app.loading,
-    products: state.products.items
+    products: state.products.items,
   }));
   const [field, setFilter] = useState({
     brand: filter.brand,
     minPrice: filter.minPrice,
     maxPrice: filter.maxPrice,
-    sortBy: filter.sortBy
+    sortBy: filter.sortBy,
   });
   const dispatch = useDispatch();
   const history = useHistory();
@@ -29,7 +29,7 @@ const Filters = ({ closeModal }) => {
 
   useEffect(() => {
     if (didMount && window.screen.width <= 480) {
-      history.push('/');
+      history.push("/");
     }
 
     if (didMount && closeModal) closeModal();
@@ -37,7 +37,6 @@ const Filters = ({ closeModal }) => {
     setFilter(filter);
     window.scrollTo(0, 0);
   }, [filter]);
-
 
   const onPriceChange = (minVal, maxVal) => {
     setFilter({ ...field, minPrice: minVal, maxPrice: maxVal });
@@ -54,7 +53,9 @@ const Filters = ({ closeModal }) => {
   };
 
   const onApplyFilter = () => {
-    const isChanged = Object.keys(field).some((key) => field[key] !== filter[key]);
+    const isChanged = Object.keys(field).some(
+      (key) => field[key] !== filter[key]
+    );
 
     if (field.minPrice > field.maxPrice) {
       return;
@@ -68,7 +69,7 @@ const Filters = ({ closeModal }) => {
   };
 
   const onResetFilter = () => {
-    const filterFields = ['brand', 'minPrice', 'maxPrice', 'sortBy'];
+    const filterFields = ["brand", "minPrice", "maxPrice", "sortBy"];
 
     if (filterFields.some((key) => !!filter[key])) {
       dispatch(resetFilter());
@@ -93,10 +94,8 @@ const Filters = ({ closeModal }) => {
             onChange={onBrandFilterChange}
           >
             <option value="">All Brands</option>
-            <option value="salt">Salt Maalat</option>
-            <option value="betsin">Betsin Maalat</option>
-            <option value="black">Black Kibal</option>
-            <option value="sexbomb">Sexbomb</option>
+            <option value="ignite">Ignite</option>
+            <option value="others">Outros</option>
           </select>
         )}
       </div>
@@ -111,10 +110,10 @@ const Filters = ({ closeModal }) => {
           onChange={onSortFilterChange}
         >
           <option value="">None</option>
-          <option value="name-asc">Name Ascending A - Z</option>
-          <option value="name-desc">Name Descending Z - A</option>
-          <option value="price-desc">Price High - Low</option>
-          <option value="price-asc">Price Low - High</option>
+          <option value="name-asc">A - Z</option>
+          <option value="name-desc">Z - A</option>
+          <option value="price-desc">Maior Preço</option>
+          <option value="price-asc">Menor Preço</option>
         </select>
       </div>
       <div className="filters-field">
@@ -160,7 +159,7 @@ const Filters = ({ closeModal }) => {
 };
 
 Filters.propTypes = {
-  closeModal: PropType.func.isRequired
+  closeModal: PropType.func.isRequired,
 };
 
 export default withRouter(Filters);

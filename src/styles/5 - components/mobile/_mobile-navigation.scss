@@ -3,8 +3,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  // background: $background-color;
-  background: #fff;
+  background: $background-color;
+  // background: #fff;
   z-index: map-get($z-index, 'navigation');
   box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
 }

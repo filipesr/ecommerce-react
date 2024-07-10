@@ -81,7 +81,13 @@ class Firebase {
     });
 
   updateProfile = (id, updates) =>
-    this.db.collection("users").doc(id).update(updates);
+    this.db
+      .collection("users")
+      .doc(id)
+      .update(updates)
+      .catch((error) => {
+        console.error(error.code, error.message);
+      });
 
   onAuthStateChanged = () =>
     new Promise((resolve, reject) => {

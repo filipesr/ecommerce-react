@@ -39,11 +39,11 @@ const ProductItem = ({ product, isItemOnBasket, addToBasket }) => {
           role="presentation"
         >
           <div className="product-card-img-wrapper">
-            {product.image ? (
+            {product?.imageCollection[0]?.url ? (
               <ImageLoader
                 alt={product.name}
                 className="product-card-img"
-                src={product.image}
+                src={product?.imageCollection[0]?.url}
               />
             ) : <Skeleton width="100%" height="90%" />}
           </div>
@@ -65,7 +65,7 @@ const ProductItem = ({ product, isItemOnBasket, addToBasket }) => {
             onClick={handleAddToBasket}
             type="button"
           >
-            {itemOnBasket ? 'Remove from basket' : 'Add to basket'}
+            {itemOnBasket ? 'Remover do carrinho' : 'Comprar'}
           </button>
         )}
 

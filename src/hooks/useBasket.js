@@ -1,6 +1,9 @@
-import { displayActionMessage } from '@/helpers/utils';
-import { useDispatch, useSelector } from 'react-redux';
-import { addToBasket as dispatchAddToBasket, removeFromBasket } from '@/redux/actions/basketActions';
+import { displayActionMessage } from "@/helpers/utils";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToBasket as dispatchAddToBasket,
+  removeFromBasket,
+} from "@/redux/actions/basketActions";
 
 const useBasket = () => {
   const { basket } = useSelector((state) => ({ basket: state.basket }));
@@ -11,10 +14,10 @@ const useBasket = () => {
   const addToBasket = (product) => {
     if (isItemOnBasket(product.id)) {
       dispatch(removeFromBasket(product.id));
-      displayActionMessage('Item removed from basket', 'info');
+      displayActionMessage("Item removido do carrinho", "info");
     } else {
       dispatch(dispatchAddToBasket(product));
-      displayActionMessage('Item added to basket', 'success');
+      displayActionMessage("Item adicionado ao carrinho", "success");
     }
   };
 

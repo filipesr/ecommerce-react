@@ -27,6 +27,8 @@
 
 .footer-col-1 {
   flex-basis: 40%; 
+  display: flex;
+  justify-content: space-around;
 
   @include mobile {
     flex-basis: none;
@@ -51,12 +53,23 @@
 .footer-col-3 {
   flex-basis: 40%;
   text-align: right;
+  display: flex;
+  justify-content: space-around;
 
   @include mobile {
     flex-basis: none;
     order: 2;
     text-align: center;
   }
+}
+
+.footer-col-1 div,
+.footer-col-2 div,
+.footer-col-3 div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
 @include mobile {

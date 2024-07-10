@@ -10,7 +10,9 @@
 
 .searchbar-input {
   width: 100%;
-  background: $white;
+  color: $nav-color;
+  background: $background-color;
+  border: none;
 }
 
 .searchbar-recent {
@@ -18,7 +20,8 @@
   top: 100%;
   left: 0;
   width: 100%;
-  background: $white;
+  color: $nav-color;
+  background: $background-color;
   box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
   display: none;
 }

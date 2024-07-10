@@ -3,8 +3,8 @@ import { ProductCard } from "@/components/product";
 import PropType from "prop-types";
 import React from "react";
 
-const ProductShowcase = ({ products, skeletonCount }) => (
-  <div className="product-display-grid">
+const ProductSlide = ({ products, skeletonCount }) => (
+  <div className="product-slide">
     {products.length === 0
       ? new Array(skeletonCount).fill({}).map((product, index) => (
           <ProductCard
@@ -19,13 +19,13 @@ const ProductShowcase = ({ products, skeletonCount }) => (
   </div>
 );
 
-ProductShowcase.defaultProps = {
+ProductSlide.defaultProps = {
   skeletonCount: 4,
 };
 
-ProductShowcase.propTypes = {
+ProductSlide.propTypes = {
   products: PropType.array.isRequired,
   skeletonCount: PropType.number,
 };
 
-export default ProductShowcase;
+export default ProductSlide;

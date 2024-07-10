@@ -1,13 +1,16 @@
-.color-chooser {
+.size-chooser {
     width: 100%;
     display: flex;
     gap: 1rem;
+    font-size: 10px;
 
 }
 
-.color-item {
-    width: 2rem;
-    height: 2rem;
+.size-item {
+    padding: 0.5rem;
+    min-width: 3rem;
+    text-align: center;
+
     border-radius: 15%;
     position: relative;
     z-index: 1;
@@ -21,8 +24,8 @@
     }
 }
 
-.color-item-selected,
-.color-item-deletable {
+.size-item-selected,
+.size-item-deletable {
     border: 2px solid #5c7efa !important;
     transform: scale(1.2);
 
@@ -37,7 +40,7 @@
     }
 }
 
-.color-item-deletable {
+.size-item-deletable {
     &:after {
         content: '✖';
         display: none;

@@ -98,7 +98,7 @@ input[type=radio] + label:after {
   margin: auto;
   width: 3px;
   height: 10px;
-  border: solid $border-color;
+  // border: solid $border-color;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
   transition: all .3s ease;
@@ -161,4 +161,8 @@ input[type=color] {
 .input-group {
   display: flex;
   flex-direction: column;
+}
+
+.input-group div {
+  margin-bottom: 0;
 }

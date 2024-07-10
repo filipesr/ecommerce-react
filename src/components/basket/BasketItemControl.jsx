@@ -1,8 +1,9 @@
-import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
-import PropType from 'prop-types';
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { addQtyItem, minusQtyItem } from '@/redux/actions/basketActions';
+import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
+import PropType from "prop-types";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { addQtyItem, minusQtyItem } from "@/redux/actions/basketActions";
+import { ProductShape } from "@/shapes/productShape";
 
 const BasketItemControl = ({ product }) => {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const BasketItemControl = ({ product }) => {
   };
 
   const onMinusQty = () => {
-    if ((product.maxQuantity >= product.quantity) && product.quantity !== 0) {
+    if (product.maxQuantity >= product.quantity && product.quantity !== 0) {
       dispatch(minusQtyItem(product.id));
     }
   };
@@ -27,7 +28,7 @@ const BasketItemControl = ({ product }) => {
         onClick={onAddQty}
         type="button"
       >
-        <PlusOutlined style={{ fontSize: '9px' }} />
+        <PlusOutlined style={{ fontSize: "9px" }} />
       </button>
       <button
         className="button button-border button-border-gray button-small basket-control basket-control-minus"
@@ -35,32 +36,14 @@ const BasketItemControl = ({ product }) => {
         onClick={onMinusQty}
         type="button"
       >
-        <MinusOutlined style={{ fontSize: '9px' }} />
+        <MinusOutlined style={{ fontSize: "9px" }} />
       </button>
     </div>
   );
 };
 
 BasketItemControl.propTypes = {
-  product: PropType.shape({
-    id: PropType.string,
-    name: PropType.string,
-    brand: PropType.string,
-    price: PropType.number,
-    quantity: PropType.number,
-    maxQuantity: PropType.number,
-    description: PropType.string,
-    keywords: PropType.arrayOf(PropType.string),
-    selectedSize: PropType.string,
-    selectedColor: PropType.string,
-    imageCollection: PropType.arrayOf(PropType.string),
-    sizes: PropType.arrayOf(PropType.number),
-    image: PropType.string,
-    imageUrl: PropType.string,
-    isFeatured: PropType.bool,
-    isRecommended: PropType.bool,
-    availableColors: PropType.arrayOf(PropType.string)
-  }).isRequired
+  product: ProductShape(),
 };
 
 export default BasketItemControl;

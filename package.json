@@ -17,6 +17,7 @@
     "test": "cross-env NODE_ENV=test jest --config=jest.config.json"
   },
   "devDependencies": {
+    "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "^2.0.0",
     "copy-webpack-plugin": "^8.1.1",
     "cross-env": "^7.0.3",

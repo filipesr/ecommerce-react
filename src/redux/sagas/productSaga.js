@@ -69,8 +69,8 @@ function* productSaga({ type, payload }) {
 
         const { imageCollection } = payload;
         const key = yield call(firebase.generateKey);
-        const downloadURL = yield call(firebase.storeImage, key, 'products', payload.image);
-        const image = { id: key, url: downloadURL };
+        // const downloadURL = yield call(firebase.storeImage, key, 'products', payload.image);
+        // const image = { id: key, url: downloadURL };
         let images = [];
 
         if (imageCollection.length !== 0) {
@@ -84,8 +84,8 @@ function* productSaga({ type, payload }) {
 
         const product = {
           ...payload,
-          image: downloadURL,
-          imageCollection: [image, ...images]
+          // image: downloadURL,
+          imageCollection: images
         };
 
         yield call(firebase.addProduct, key, product);
@@ -105,19 +105,19 @@ function* productSaga({ type, payload }) {
       try {
         yield initRequest();
 
-        const { image, imageCollection } = payload.updates;
+        const { imageCollection } = payload.updates;
         let newUpdates = { ...payload.updates };
 
-        if (image.constructor === File && typeof image === 'object') {
-          try {
-            yield call(firebase.deleteImage, payload.id);
-          } catch (e) {
-            console.error('Failed to delete image ', e);
-          }
+        // if (image.constructor === File && typeof image === 'object') {
+        //   try {
+        //     yield call(firebase.deleteImage, payload.id);
+        //   } catch (e) {
+        //     console.error('Failed to delete image ', e);
+        //   }
 
-          const url = yield call(firebase.storeImage, payload.id, 'products', image);
-          newUpdates = { ...newUpdates, image: url };
-        }
+        //   const url = yield call(firebase.storeImage, payload.id, 'products', image);
+        //   newUpdates = { ...newUpdates, image: url };
+        // }
 
         if (imageCollection.length > 1) {
           const existingUploads = [];
